@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ejemplo de Manipulación del DOM</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		#tarea-input {
+			margin-bottom: 10px;
+		}
+
+		#lista-tareas {
+			list-style-type: none;
+			padding: 0;
+			margin-bottom: 20px;
+		}
+
+		.tarea {
+			margin-bottom: 5px;
+		}
+
+		.eliminar-btn {
+			margin-left: 10px;
+			cursor: pointer;
+		}
+
+		#color-btn {
+			margin-bottom: 10px;
+		}
+
+		
+	</style>
+</head>
+
+<body>
+
+	<h1>Lista de Tareas</h1>
+
+	<input type="text" id="tarea-input" placeholder="Nueva tarea">
+	<button id="addTask">Agregar Tarea</button>
+
+	<ul id="lista-tareas">
+		<!-- Aquí se mostrarán las tareas -->
+	</ul>
+
+	<button id="color-btn">Cambiar Color de Tareas</button>
+
+	<div id="card-container">
+		<!-- Aquí se mostrará la tarjeta creada dinámicamente -->
+	</div>
+
+	<script>
+		mostrarTarjeta
+		document.addEventListener('DOMContentLoaded', mostrarTarjeta);
+		const btnAgregarTarea = document.getElementById('addTask');
+		btnAgregarTarea.onclick = agregarTarea;
+
+		const tareaInput = document.getElementById('tarea-input');
+		const listaTareas = document.getElementById('lista-tareas');
+		const colorBtn = document.getElementById('color-btn');
+		const cardContainer = document.getElementById('card-container');
+
+		// Función para agregar una nueva tarea
+		function agregarTarea() {
+			const nuevaTarea = tareaInput.value;
+
+			if (nuevaTarea.trim() !== '') {
+				// Crear elemento li para la nueva tarea
+				const elementoTarea = document.createElement('li');
+				elementoTarea.className = 'tarea';
+				elementoTarea.textContent = nuevaTarea;
+
+				// Crear botón para eliminar la tarea
+				const eliminarBtn = document.createElement('span');
+				eliminarBtn.className = 'eliminar-btn';
+				eliminarBtn.textContent = '❌';
+				eliminarBtn.onclick = function () {
+					listaTareas.removeChild(elementoTarea);
+				};
+
+				// Agregar el botón al elemento de la tarea
+				elementoTarea.appendChild(eliminarBtn);
+
+				// Agregar la tarea a la lista
+				listaTareas.appendChild(elementoTarea);
+
+				// Limpiar el campo de entrada
+				tareaInput.value = '';
+			}
+		}
+
+		// Función para cambiar el color de fondo de las tareas
+		function cambiarColorTareas() {
+			const tareas = document.querySelectorAll('.tarea');
+			tareas.forEach(tarea => {
+				const colorAleatorio = generarColorAleatorio();
+				tarea.style.backgroundColor = colorAleatorio;
+			});
+		}
+
+		// Función para generar un color aleatorio en formato hexadecimal
+		function generarColorAleatorio() {
+			return '#' + Math.floor(Math.random() * 16777215).toString(16);
+		}
+
+		// Función para mostrar una tarjeta creada dinámicamente
+		function mostrarTarjeta() {
+			// Crear el contenedor de la tarjeta
+			const card = document.createElement('div');
+			card.className = 'card';
+
+			// Crear el título de la tarjeta
+			const title = document.createElement('h2');
+			title.textContent = 'Información Personal';
+			title.style.color = '#333'; // Color del texto
+
+			// Crear la descripción de la tarjeta
+			const description = document.createElement('p');
+			description.textContent = 'Detalles ficticios para demostración';
+			description.style.fontStyle = 'italic'; // Estilo de texto en cursiva
+
+			// Crear datos ficticios
+			const nombre = document.createElement('p');
+			nombre.textContent = 'Nombre: John Doe';
+			nombre.style.fontWeight = 'bold'; // Texto en negrita
+
+			const edad = document.createElement('p');
+			edad.textContent = 'Edad: 25';
+			edad.style.color = 'blue'; // Color del texto
+
+			const apellido = document.createElement('p');
+			apellido.textContent = 'Apellido: Smith';
+
+			// Agregar elementos a la tarjeta
+			card.appendChild(title);
+			card.appendChild(description);
+			card.appendChild(nombre);
+			card.appendChild(edad);
+			card.appendChild(apellido);
+
+			// Estilos generales para la tarjeta
+			card.style.border = '2px solid #ccc';
+			card.style.borderRadius = '8px';
+			card.style.padding = '10px';
+			card.style.marginTop = '20px';
+			card.style.width = '400px';
+
+			// Mostrar la tarjeta en el contenedor
+			cardContainer.innerHTML = '';
+			cardContainer.appendChild(card);
+		}
+
+		// Asignar la función al evento onclick del botón de cambio de color
+		colorBtn.onclick = cambiarColorTareas;
+	</script>
+
+</body>
+
+</html>
