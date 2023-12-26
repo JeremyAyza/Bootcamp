@@ -8,6 +8,8 @@ Bienvenido al Bootcamp de Frontend. Esta guía proporciona información esencial
 
 El DOM (Document Object Model) es una representación en memoria de la estructura de un documento HTML. Permite a los programadores acceder, modificar y actualizar el contenido y la estructura de una página web de manera dinámica.
 
+https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+
 ### Selección de Elementos
 
 En JavaScript, hay varias formas de seleccionar elementos del DOM:
